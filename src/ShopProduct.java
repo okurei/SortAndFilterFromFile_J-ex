@@ -2,6 +2,7 @@ public class ShopProduct {
     private final String name;
     private double price;
     private int rating;
+    public final int ratingThreshold = 3;
 
     public ShopProduct(String name, double price, int rating) {
         this.name = name;

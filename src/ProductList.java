@@ -7,7 +7,7 @@ public class ProductList {
     File productListTxt = new File(pathListTxt);
     ArrayList<ShopProduct> productArrayList = new ArrayList<>();
 
-    public void writerForProductList(){
+    /*public void writerForProductList(){
         if (productListTxt.exists() && productListTxt.canWrite()){
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(productListTxt))){
                 writer.write("PersonalPc 999.99 4\n");
@@ -16,7 +16,7 @@ public class ProductList {
                 System.out.println("Error in writing");
             }
         }
-    }
+    }*/
 
     public void readerForProductList(){
         if (productListTxt.exists() && productListTxt.canRead()){
