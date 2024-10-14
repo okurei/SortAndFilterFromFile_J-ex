@@ -1,22 +1,14 @@
 import java.io.*;
-import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.LinkedList;
+import java.util.stream.Collectors;
 
 public class ProductList {
     int counter = 0;
     String pathListTxt = "src/productList.txt";
     File productListTxt = new File(pathListTxt);
-    ArrayList<ShopProduct> productArrayList = new ArrayList<>();
+    LinkedList<ShopProduct> productLinkedList = new LinkedList<>();
 
-    /*public void writerForProductList(){
-        if (productListTxt.exists() && productListTxt.canWrite()){
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter(productListTxt))){
-                writer.write("PersonalPc 999.99 4\n");
-                writer.write("PersonalPc 999.99 4\n");
-            }catch (IOException e){
-                System.out.println("Error in writing");
-            }
-        }
-    }*/
 
     public void readerForProductList(){
         if (productListTxt.exists() && productListTxt.canRead()){
@@ -32,20 +24,20 @@ public class ProductList {
                         try {
                             productPrice = Double.parseDouble(productsArray[1]);
                         } catch (NumberFormatException e) {
-                            System.out.println("Error with price" + counter);
+                            System.out.println("Error with price " + counter);
                             productPrice = -1;
                         }
                         try {
                             productRating = Integer.parseInt(productsArray[2]);
                         } catch (NumberFormatException e) {
-                            System.out.println("Error with rating" + counter);
+                            System.out.println("Error with rating " + counter);
                             productRating = -1;
                         }
                         if (productName != null && productPrice != -1 && productRating != -1) {
                             ShopProduct shopProduct = new ShopProduct(productName, productPrice, productRating);
-                            productArrayList.add(shopProduct);
+                            productLinkedList.add(shopProduct);
                         } else {
-                            System.out.println("Error with the creation of the class" + counter);
+                            System.out.println("Error with the creation of the class " + counter);
                         }
                     }
 
@@ -56,10 +48,26 @@ public class ProductList {
             }
         }
     }
+    public void compareProducts(){
+        readerForProductList();
+        for (ShopProduct product : productLinkedList)
+            System.out.println(product.toString());
+        System.out.println("\n\n");
 
-    public void printArrayList(){
-        for (ShopProduct shopProduct : productArrayList) {
-            System.out.println(shopProduct.toString());
-        }
+        productLinkedList.sort(Comparator.comparing(ShopProduct::getPrice).thenComparing(ShopProduct::getRating));
+
+        for (ShopProduct product : productLinkedList)
+            System.out.println(product.toString());
+
+        LinkedList<String> endList = (LinkedList<String>) productLinkedList.stream()
+                .filter(shopProduct -> shopProduct.getRating() > shopProduct.ratingThreshold)
+                .map(ShopProduct :: toString)
+                .collect(Collectors.toList());
+
+        System.out.println("\n");
+        endList.forEach(System.out::println);
+        System.out.println("\n");
+        productLinkedList.forEach(System.out::println);
     }
+
 }

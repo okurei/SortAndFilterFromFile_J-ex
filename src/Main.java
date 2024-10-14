@@ -1,8 +1,7 @@
 public class Main {
     public static void main(String[] args) {
-        ProductList productList = new ProductList();
-        productList.readerForProductList();
-        productList.printArrayList();
+       ProductList productList = new ProductList();
+        productList.compareProducts();
     }
 }
 /*
