@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.stream.Collectors;
 
 public class ProductList {
+    public final int ratingThreshold = 3;
     int counter = 0;
     String pathListTxt = "src/productList.txt";
     File productListTxt = new File(pathListTxt);
@@ -60,7 +61,7 @@ public class ProductList {
             System.out.println(product.toString());
 
         LinkedList<String> endList = (LinkedList<String>) productLinkedList.stream()
-                .filter(shopProduct -> shopProduct.getRating() > shopProduct.ratingThreshold)
+                .filter(shopProduct -> shopProduct.getRating() > ratingThreshold)
                 .map(ShopProduct :: toString)
                 .collect(Collectors.toList());
 
