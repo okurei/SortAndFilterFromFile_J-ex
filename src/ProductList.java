@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.stream.Collectors;
@@ -51,16 +52,13 @@ public class ProductList {
     }
     public void compareProducts(){
         readerForProductList();
-        for (ShopProduct product : productLinkedList)
-            System.out.println(product.toString());
-        System.out.println("\n\n");
 
         productLinkedList.sort(Comparator.comparing(ShopProduct::getPrice).thenComparing(ShopProduct::getRating));
 
         for (ShopProduct product : productLinkedList)
             System.out.println(product.toString());
 
-        LinkedList<String> endList = (LinkedList<String>) productLinkedList.stream()
+        ArrayList<String> endList = (ArrayList<String>) productLinkedList.stream()
                 .filter(shopProduct -> shopProduct.getRating() > ratingThreshold)
                 .map(ShopProduct :: toString)
                 .collect(Collectors.toList());
@@ -68,7 +66,6 @@ public class ProductList {
         System.out.println("\n");
         endList.forEach(System.out::println);
         System.out.println("\n");
-        productLinkedList.forEach(System.out::println);
     }
 
 }
